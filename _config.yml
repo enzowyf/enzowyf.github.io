@@ -16,5 +16,3 @@ github_username:  enzowyf
 
 # Build settings
 markdown: kramdown
-
-theme: jekyll-theme-cayman
