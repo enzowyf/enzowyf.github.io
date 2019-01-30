@@ -11,7 +11,7 @@ email: enzowyf@gmail.com
 description: > # this means to ignore newlines until "baseurl:"
   Enzo的开源库
 baseurl: "www.ezstudio.cn" # the subpath of your site, e.g. /blog
-url: "http://yourdomain.com" # the base hostname & protocol for your site
+url: "http://www.ezstudio.cn" # the base hostname & protocol for your site
 github_username:  enzowyf
 
 # Build settings
