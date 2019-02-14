@@ -32,7 +32,7 @@ tags: http2 android ALPN
 
 进入```nginx```目录
 
-```
+```bash
 start nginx
 ```
 
@@ -96,13 +96,13 @@ server {
 
 将```http```的请求重定向到```https```，只需要在```http```对应```server```配置中添加```rewrite```
 
-
-	server {
-	        listen       80;
-	        server_name enzo.com;
-	        rewrite ^(.*) https://$server_name$1 permanent;
-	}
-
+```nginx
+server {
+        listen       80;
+        server_name enzo.com;
+        rewrite ^(.*) https://$server_name$1 permanent;
+}
+```
  由于指定了虚拟域名，还需要在```hosts```中将```enzo.com```指向本机```127.0.0.1```
 
 ### 五、加载nginx配置

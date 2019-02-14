@@ -3,6 +3,7 @@ layout: post
 title:  "Kotlin之高阶函数"
 date:   2017-11-09 15:54:42 +0800
 categories: Android开发
+cover: './../assets/img/post/kotlin_banner.jpg'
 tags: kotlin
 ---
 
