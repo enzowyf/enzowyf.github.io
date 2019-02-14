@@ -73,7 +73,8 @@ textView.setTextColor(Color.BLUE)
 @kotlin.internal.InlineOnly
 public inline fun <T, R> T.let(block: (T) -> R): R = block(this)
 ```
-```let```函数默认当前这个对象作为闭包的it参数，返回值是函数里面最后一行，或者指定```return```。例如上述的例子：
+
+ ```let```函数默认当前这个对象作为闭包的it参数，返回值是函数里面最后一行，或者指定```return```。例如上述的例子：
 
 ```kotlin
 //let函数默认返回最后一行
