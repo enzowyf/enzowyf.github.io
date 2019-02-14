@@ -44,7 +44,7 @@ start nginx
 
 在```nginx```根目录下新建```ssl```文件夹(名字可以自己定)，
 
-```
+```bash
 #此步用于生成私钥，会提示输入密码，密码后面步骤需要用到；enzo.key为私钥的名字，文件名可自己定
 openssl genrsa -des3 -out enzo.key 1024
 #此步用于生成csr证书，enzo.key为上一步骤生成的私钥名，enzo.csr为证书，证书文件名可自定
@@ -96,18 +96,18 @@ server {
 
 将```http```的请求重定向到```https```，只需要在```http```对应```server```配置中添加```rewrite```
 
-```nginx
-server {
-        listen       80;
-        server_name enzo.com;
-        rewrite ^(.*) https://$server_name$1 permanent;
-}
-```
+
+	server {
+	        listen       80;
+	        server_name enzo.com;
+	        rewrite ^(.*) https://$server_name$1 permanent;
+	}
+
  由于指定了虚拟域名，还需要在```hosts```中将```enzo.com```指向本机```127.0.0.1```
 
 ### 五、加载nginx配置
 
-```
+```bash
 D:\http2\nginx-1.11.4>nginx -s reload
 nginx: [emerg] the "http2" parameter requires ngx_http_v2_module in D:\http2\nginx-1.11.4/conf/nginx.conf:98
 ```
@@ -256,13 +256,13 @@ public void testURLConnection() {
 
 找一个已root的4.4的手机，确保跟server处于同一个局域网，在手机的```hosts```将```enzo.com```指向server地址，运行demo，只见```nginx```的```access.log```中给你来了这么一行：
 
-```
+```bash
 "GET / HTTP/1.1" 200 612 "-" "Dalvik/1.6.0 (Linux; U; Android 4.4.4; M463C Build/KTU84P)"
 ```
 
  被降级到```HTTP/1.1```了，那5.x的手机呢：
 
-```
+```bash
 "GET / HTTP/1.1" 200 612 "-" "Dalvik/2.1.0 (Linux; U; Android 5.1.1; NX529J Build/LMY47V)"
 ```
 
@@ -308,13 +308,13 @@ public void testOkHttp() {
 
  4.4：
 
-```
+```bash
 "GET / HTTP/1.1" 200 612 "-" "okhttp/3.4.1"
 ```
 
 5.x：
 
-```
+```bash
 "GET / HTTP/2.0" 200 729 "-" "okhttp/3.4.1"
 ```
 
