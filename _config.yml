@@ -1,6 +1,6 @@
 # Site settings 配置站点
 title: 'enzo的博客'
-description: '技术、摄影'
+description: 'coding'
 keyword: 'coding'
 url: '' # your host
 
@@ -19,8 +19,8 @@ footer:
 # Author 配置博主信息
 author: 'Enzo'
 nickname: 'enzo'
-bio: '技术、摄影'
-#avatar: '/assets/img/profile.png'
+bio: 'coding'
+avatar: '/assets/img/profile.jpeg'
 
 # Search
 search: true
