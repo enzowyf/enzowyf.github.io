@@ -118,7 +118,7 @@ nginx: [emerg] the "http2" parameter requires ngx_http_v2_module in D:\http2\ngi
 
 要在```windows```下编译，太痛苦了吧，还是移师```mac```吧
 
-```nginx```依赖以下模块：
+重新编译```nginx```需要依赖以下模块：
 
 * ```gzip```模块需要```zlib```库    ----  已经有了
 
