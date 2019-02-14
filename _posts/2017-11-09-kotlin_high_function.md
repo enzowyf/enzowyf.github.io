@@ -74,7 +74,7 @@ textView.setTextColor(Color.BLUE)
 public inline fun <T, R> T.let(block: (T) -> R): R = block(this)
 ```
 
- ```let```函数默认当前这个对象作为闭包的it参数，返回值是函数里面最后一行，或者指定```return```。例如上述的例子：
+let函数默认当前这个对象作为闭包的it参数，返回值是函数里面最后一行，或者指定```return```。例如上述的例子：
 
 ```kotlin
 //let函数默认返回最后一行
@@ -97,7 +97,7 @@ print(text)//结果为Hello World
 public inline fun <T> T.also(block: (T) -> Unit): T { block(this); return this }
 ```
 
-```also```可以看作是```apply```和```let```的结合：默认当前这个对象作为闭包的```it```参数，最后返回自己，例如：
+also可以看作是```apply```和```let```的结合：默认当前这个对象作为闭包的```it```参数，最后返回自己，例如：
 
 ```kotlin
 //生成一个TextView实例，并设置相应的属性后将it返回给textView
@@ -108,7 +108,7 @@ val textView = TextView(this).also {
 ```
 
 ### 4.run
-```run```有两种，一种是```apply```和```let```的另一种结合体：在函数范围内，可以任意调用该对象的任意方法，返回函数里面最后一行，或者指定```return```
+run有两种，一种是```apply```和```let```的另一种结合体：在函数范围内，可以任意调用该对象的任意方法，返回函数里面最后一行，或者指定```return```
 
 ```kotlin
 /**
@@ -166,7 +166,7 @@ val textView = TextView(this).apply {
 @kotlin.internal.InlineOnly
 public inline fun <T, R> with(receiver: T, block: T.() -> R): R = receiver.block()
 ```
-```with```函数接收两个参数，一个是调用者，第二个为一个函数，在函数库内可以通过```this```指代调用者（第一个参数）来调用，返回值为函数块的最后一行或指定```return```。例如：
+with函数接收两个参数，一个是调用者，第二个为一个函数，在函数库内可以通过```this```指代调用者（第一个参数）来调用，返回值为函数块的最后一行或指定```return```。例如：
 
 ```kotlin
 val textView = TextView(this)
@@ -210,7 +210,7 @@ repeat(10) {print(text)}//打印10次Hello World
 @SinceKotlin("1.1")
 public inline fun <T> T.takeIf(predicate: (T) -> Boolean): T? = if (predicate(this)) this else null
 ```
-```takeIf ```接收一个字面值为```predicate```的函数```(T) -> Boolean```，这个函数的参数为```T ```（即```takeIf ```的调用者），返回Boolean。
+takeIf接收一个字面值为```predicate```的函数```(T) -> Boolean```，这个函数的参数为```T ```（即```takeIf ```的调用者），返回Boolean。
 
 takeIf的作用就是字面意思，如果（if）```predicate```为真，则采用（take）调用者。例如：
 
