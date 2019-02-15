@@ -8,7 +8,7 @@ tags: kotlin
 ---
 
 ## 高阶函数的基本概念
-高阶函数是将函数用作参数或返回值的函数。类似于数学中的高阶函数```f(g(x))```。看看官方的例子：
+高阶函数是将函数用作参数或返回值的函数。类似于数学中的高阶函数`f(g(x))`。看看官方的例子：
 
 ```kotlin
 fun <T> lock(lock: Lock, body: () -> T): T {
@@ -22,15 +22,15 @@ fun <T> lock(lock: Lock, body: () -> T): T {
 }
 ```
 
-上面的代码中：```body``` 拥有函数类型：```() -> T```， 所以它应该是一个不带参数并且返回```T``` 类型值的函数。 它在 try-代码块内部调用、被 lock 保护，其结果由```lock()```函数返回。
+上面的代码中：`body` 拥有函数类型：`() -> T`， 所以它应该是一个不带参数并且返回`T`类型值的函数。 它在`try-`代码块内部调用、被`lock`保护，其结果由`lock()`函数返回。
 
-高阶函数通常与Lambda表达式一起使用：
+高阶函数通常与`lambda`表达式一起使用：
 
 ```kotlin
 val result = lock(lock, { sharedResource.operation() })
 ```
 
-在 Kotlin 中有一个约定，如果函数的最后一个参数是一个函数，并且你传递一个 lambda 表达式作为相应的参数，你可以在圆括号之外指定它：
+在`Kotlin`中有一个约定，如果函数的最后一个参数是一个函数，并且你传递一个`lambda`表达式作为相应的参数，你可以在圆括号之外指定它：
 
 ```kotlin
 val result = lock (lock) {
@@ -39,7 +39,7 @@ val result = lock (lock) {
 ```
 
 ## 常用高阶函数
-这里收集了Kotlin标准库里面常用的高阶函数的定义和用法，以备日后查询：
+这里收集了`Kotlin`标准库里面常用的高阶函数的定义和用法，以备日后查询：
 
 ### 1. apply
 ```kotlin
@@ -49,7 +49,7 @@ val result = lock (lock) {
 @kotlin.internal.InlineOnly
 public inline fun <T> T.apply(block: T.() -> Unit): T { block(); return this }
 ```
-调用某对象的```apply```函数，在函数范围内，可以通过```this```调用该对象的任意方法，并返回该对象，```this```可以不显示的写处理。例如：
+调用某对象的`apply`函数，在函数范围内，可以通过`this`调用该对象的任意方法，并返回该对象，`this`可以不显示的写处理。例如：
 
 ```kotlin
 //生成一个TextView实例，并设置相应的属性后返回给textView
@@ -74,7 +74,7 @@ textView.setTextColor(Color.BLUE)
 public inline fun <T, R> T.let(block: (T) -> R): R = block(this)
 ```
 
-let函数默认当前这个对象作为闭包的it参数，返回值是函数里面最后一行，或者指定```return```。例如上述的例子：
+`let`函数默认当前这个对象作为闭包的`it`参数，返回值是函数里面最后一行，或者指定`return`。例如上述的例子：
 
 ```kotlin
 //let函数默认返回最后一行
@@ -97,7 +97,7 @@ print(text)//结果为Hello World
 public inline fun <T> T.also(block: (T) -> Unit): T { block(this); return this }
 ```
 
-also可以看作是```apply```和```let```的结合：默认当前这个对象作为闭包的```it```参数，最后返回自己，例如：
+`also`可以看作是`apply`和`let`的结合：默认当前这个对象作为闭包的`it`参数，最后返回自己，例如：
 
 ```kotlin
 //生成一个TextView实例，并设置相应的属性后将it返回给textView
@@ -108,7 +108,7 @@ val textView = TextView(this).also {
 ```
 
 ### 4.run
-run有两种，一种是```apply```和```let```的另一种结合体：在函数范围内，可以任意调用该对象的任意方法，返回函数里面最后一行，或者指定```return```
+`run`有两种，一种是`apply`和`let`的另一种结合体：在函数范围内，可以任意调用该对象的任意方法，返回函数里面最后一行，或者指定`return`
 
 ```kotlin
 /**
@@ -133,7 +133,7 @@ val text: String = textView.run {
 print(text)//结果为Hello World
 ```
 
-另一种```run```是：提供```() -> R ```的转换，并返回最后一行，或者指定```return```
+另一种`run`是：提供`() -> R `的转换，并返回最后一行，或者指定`return`
 
 ```kotlin
 /**
@@ -166,7 +166,7 @@ val textView = TextView(this).apply {
 @kotlin.internal.InlineOnly
 public inline fun <T, R> with(receiver: T, block: T.() -> R): R = receiver.block()
 ```
-with函数接收两个参数，一个是调用者，第二个为一个函数，在函数库内可以通过```this```指代调用者（第一个参数）来调用，返回值为函数块的最后一行或指定```return```。例如：
+`with`函数接收两个参数，一个是调用者，第二个为一个函数，在函数库内可以通过`this`指代调用者（第一个参数）来调用，返回值为函数块的最后一行或指定`return`。例如：
 
 ```kotlin
 val textView = TextView(this)
@@ -210,9 +210,9 @@ repeat(10) {print(text)}//打印10次Hello World
 @SinceKotlin("1.1")
 public inline fun <T> T.takeIf(predicate: (T) -> Boolean): T? = if (predicate(this)) this else null
 ```
-takeIf接收一个字面值为```predicate```的函数```(T) -> Boolean```，这个函数的参数为```T ```（即```takeIf ```的调用者），返回Boolean。
+`takeIf`接收一个字面值为`predicate`的函数`(T) -> Boolean`，这个函数的参数为`T `（即`takeIf `的调用者），返回`Boolean`。
 
-takeIf的作用就是字面意思，如果（if）```predicate```为真，则采用（take）调用者。例如：
+`takeIf`的作用就是字面意思，如果（if）`predicate`为真，则采用（take）调用者。例如：
 
 ```kotlin
 val flag = 1
@@ -229,7 +229,7 @@ if (flag == 1) {
 }
 ```
 
-实际上个人觉得如果是新创建对象还是使用if的写法更妥当，因为通过反编译```takeIf ```可以看到，```"Hello World"```这个对象已经被创建，如果```predicate ```不成立，这个对象没有被赋予```result ```就被浪费了。而对于已经存在的旧对象做判断，则可以使用```takeIf ```。
+实际上个人觉得如果是新创建对象还是使用if的写法更妥当，因为通过反编译`takeIf `可以看到，`"Hello World"`这个对象已经被创建，如果`predicate`不成立，这个对象没有被赋予`result`就被浪费了。而对于已经存在的旧对象做判断，则可以使用`takeIf `。
 
 
 
@@ -242,7 +242,7 @@ if (flag == 1) {
 @SinceKotlin("1.1")
 public inline fun <T> T.takeUnless(predicate: (T) -> Boolean): T? = if (!predicate(this)) this else null
 ```
-跟```takeIf ```相反，```predicate```不成立，才采用调用者，例如：
+跟`takeIf `相反，`predicate`不成立，才采用调用者，例如：
 
 ```kotlin
     val flag = 1
@@ -259,7 +259,7 @@ public fun <T> lazy(initializer: () -> T): Lazy<T>
 public fun <T> lazy(mode: LazyThreadSafetyMode, initializer: () -> T): Lazy<T>
 public fun <T> lazy(lock: Any?, initializer: () -> T): Lazy<T>
 ```
-这是一个提供延时加载能力的代理属性，接受一个 lambda 并返回一个```Lazy <T>```实例的函数，返回的实例可以作为实现延迟属性的委托： 第一次调用 ```get()``` 会执行已传递给```lazy()``` 的 lambda 表达式并记录结果， 后续调用 ```get()```只是返回记录的结果。例子：
+这是一个提供延时加载能力的代理属性，接受一个`lambda`并返回一个`Lazy <T>`实例的函数，返回的实例可以作为实现延迟属性的委托： 第一次调用 `get()`会执行已传递给`lazy()`的`lambda`表达式并记录结果， 后续调用 `get()`只是返回记录的结果。例子：
 
 ```kotlin
 val lazyValue: String by lazy {
@@ -273,7 +273,7 @@ println(lazyValue)
 //第二次访问只打印结果"Hello"
 println(lazyValue)
 ```
-默认情况下，对于 lazy 属性的求值是同步锁的（synchronized）：该值只在一个线程中计算，并且所有线程会看到相同的值。如果初始化委托的同步锁不是必需的，这样多个线程可以同时执行，那么可以将```LazyThreadSafetyMode.PUBLICATION```作为参数传递给```lazy()```函数。 而如果你确定初始化将总是发生在单个线程，那么你可以使用```LazyThreadSafetyMode.NONE```模式， 它不会有任何线程安全的保证和相关的开销。
+默认情况下，对于`lazy`属性的求值是同步锁的（`synchronized`）：该值只在一个线程中计算，并且所有线程会看到相同的值。如果初始化委托的同步锁不是必需的，这样多个线程可以同时执行，那么可以将`LazyThreadSafetyMode.PUBLICATION`作为参数传递给`lazy()`函数。 而如果你确定初始化将总是发生在单个线程，那么你可以使用`LazyThreadSafetyMode.NONE`模式， 它不会有任何线程安全的保证和相关的开销。
 
 ### 10.use
 ```kotlin
@@ -296,7 +296,7 @@ public inline fun <T : Closeable?, R> T.use(block: (T) -> R): R {
 }
 ```
 
-用来简化```Closeable```的操作，例如```close```、```try/catch```，使用统一的模板:
+用来简化`Closeable`的操作，例如`close`、`try/catch`，使用统一的模板:
 
 ```kotlin
 BufferedReader(FileReader("test.txt")).use {

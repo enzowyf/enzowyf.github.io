@@ -6,11 +6,13 @@ categories: Android开发
 tags: android
 ---
 
-最近为了做```LBS```功能模块，到网上搜了一些资料，大多数介绍都是使用繁琐的基站定位，要自己去读取什么```CellId```，```LocationAreaCode```， ```MobileCountryCode```，```MobileNetworkCode```等参数，而且多数是针对```GSM/UMTS```。而自己使用的```CDMA```，跟上面的参数叫法不一样，还得自己一个一个去对应。虽然最后算是解决了，但是难道就没有更好的办法吗。
+最近为了做`LBS`功能模块，到网上搜了一些资料，大多数介绍都是使用繁琐的基站定位，要自己去读取什么`CellId`，`LocationAreaCode`， `MobileCountryCode`，`MobileNetworkCode`等参数，而且多数是针对`GSM/UMTS`。而自己使用的`CDMA`，跟上面的参数叫法不一样，还得自己一个一个去对应。虽然最后算是解决了，但是难道就没有更好的办法吗。
 
-翻了翻```Android Developer```找到一个不错的东西```LocationManager```。```LocationManager```是通过```listener```的方式来告知调用者，而原来写好的模块是直接```return```的，于是得稍微改造一下：
+翻了翻`Android Developer`找到一个不错的东西`LocationManager`。
 
-首先定义一个```Model```：
+`LocationManager`是通过`listener`的方式来告知调用者，而原来写好的模块是直接`return`的，于是得稍微改造一下：
+
+首先定义一个`Model`：
 
 ```java
 public class LocationData {  
@@ -20,9 +22,9 @@ public class LocationData {
 }  
 ```
 
-然后```LBS```的所有功能都封装到一个工具类里面：
+然后`LBS`的所有功能都封装到一个工具类里面：
 
-首先在构造函数里面获取系统服务中的```LocationManager```：
+首先在构造函数里面获取系统服务中的`LocationManager`：
 
 ```java
 public class LBSTool {  
@@ -44,7 +46,7 @@ public class LBSTool {
 }  
 ```
 
-然后是入口方法，这里会启动一个子线程去获取地理位置信息，并让主线程进入等待，时长通过```timeout```设置
+然后是入口方法，这里会启动一个子线程去获取地理位置信息，并让主线程进入等待，时长通过`timeout`设置
 
 ```java
 /**  
@@ -73,7 +75,7 @@ public LocationData getLocation(long timeout) {
 } 
 ```
 
-子线程通过调用```registerLocationListener```开启位置服务的监听，并且讲监听器分配给指定```looper```：
+子线程通过调用`registerLocationListener`开启位置服务的监听，并且讲监听器分配给指定`looper`：
 
 ```java
 private class LBSThread extends Thread {  
@@ -106,7 +108,7 @@ private void registerLocationListener () {
 } 
 ```
  
-其中```isGPSEnabled```和```isNetworkEnabled```分别为判断当前手机是否开启了```GPS```以及网络的状况（包含了是否开启```wifi```和移动网络），以决定使用哪一种服务提供者：```GPS_PROVIDER```或者```NETWORK_PROVIDER```。
+其中`isGPSEnabled`和`isNetworkEnabled`分别为判断当前手机是否开启了`GPS`以及网络的状况（包含了是否开启`wifi`和移动网络），以决定使用哪一种服务提供者：`GPS_PROVIDER`或者`NETWORK_PROVIDER`。
 
 ```java
 /**  
@@ -162,7 +164,7 @@ public boolean isWIFIEnabled() {
 } 
 ```
 
-当```LocationManager```在大于最短时间且检测到最小位置变化时，就会通知给监听器，然后我们就可以通过返回的经纬度信息去```google```服务器查找对应的地址，然后停止```LocationManger```的工作，解除```LBSThread```中的```Looper```，让```LBSThread```结束，最后通知主线程可以继续，整个流程结束。
+当`LocationManager`在大于最短时间且检测到最小位置变化时，就会通知给监听器，然后我们就可以通过返回的经纬度信息去`google`服务器查找对应的地址，然后停止`LocationManger`的工作，解除`LBSThread`中的`Looper`，让`LBSThread`结束，最后通知主线程可以继续，整个流程结束。
 
 ```java
 private class MyLocationListner implements LocationListener{    
@@ -237,7 +239,7 @@ private void unRegisterLocationListener () {
 } 
 ```
 
-接下来可以在界面上安放个```button```:
+接下来可以在界面上安放个`button`:
 
 ```java
 locationBtn.setOnClickListener(new OnClickListener() {  
@@ -270,7 +272,7 @@ locationBtn.setOnClickListener(new OnClickListener() {
 ```
  
  
-此外，```LocationManager```还有些高级的用法，比如设置一些关键参数，以及获取最后一次定位信息等等：
+此外，`LocationManager`还有些高级的用法，比如设置一些关键参数，以及获取最后一次定位信息等等：
 
 ```java
 Criteria criteria = new Criteria(); 

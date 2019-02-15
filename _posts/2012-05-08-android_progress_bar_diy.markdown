@@ -6,7 +6,7 @@ categories: Android开发
 tags: android
 ---
 
-Android原生控件只有横向进度条一种，而且没法变换样式，比如原生rom的样子
+`Android`原生控件只有横向进度条一种，而且没法变换样式，比如原生`rom`的样子
 
 ![](./../assets/img/2012-05-8-android_progress_bar_diy/1.jpg)
 
@@ -19,7 +19,7 @@ ok，我们开始吧：
  
 ## 一）变换前背景
 
-先来看看```progressbar```的属性：
+先来看看`progressbar`的属性：
 
 ```xml
 <ProgressBar 
@@ -34,7 +34,7 @@ ok，我们开始吧：
     android:progress="50" />
 ```
 
-根据```style="?android:attr/progressBarStyleHorizontal"```，我们找到源码中的```style.xml```:
+根据`style="?android:attr/progressBarStyleHorizontal"`，我们找到源码中的``style.xml`:
 
 ```xml
 <style name="Widget.ProgressBar.Horizontal"> 
@@ -52,7 +52,7 @@ ok，我们开始吧：
 <item name="android:progressDrawable">@android:drawable/progress_horizontal</item>
 ```
 
-继续发掘源码，找到```drawable```下面的```progress_horizontal.xml```，这就是我们今天的主角了：
+继续发掘源码，找到`drawable`下面的`progress_horizontal.xml`，这就是我们今天的主角了：
 
 ```xml
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"> 
@@ -103,13 +103,13 @@ ok，我们开始吧：
 </layer-list>
 ```
 
-看到```android:id="@android:id/progress"```木有!!!
+看到`android:id="@android:id/progress"`木有!!!
 
-看到```android:id="@android:id/secondaryProgress"```木有!!!
+看到`android:id="@android:id/secondaryProgress"`木有!!!
 
-把这个文件复制到自己工程下的```drawable```，就可以随心所欲的修改```shape```的属性，渐变，圆角等等
+把这个文件复制到自己工程下的`drawable`，就可以随心所欲的修改`shape`的属性，渐变，圆角等等
 
-那么怎么放一个图片进去呢，ok，新建```progress_horizontal1.xml```：
+那么怎么放一个图片进去呢，ok，新建`progress_horizontal1.xml`：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?> 
@@ -120,7 +120,7 @@ ok，我们开始吧：
 </layer-list> 
 ```
 
-在```android:drawable```中指定你处理好的图片，然后回到布局中:
+在`android:drawable`中指定你处理好的图片，然后回到布局中:
 
 ```xml
 <ProgressBar 
@@ -140,9 +140,9 @@ ok，我们开始吧：
     android:progressDrawable="@drawable/progress_horizontal1" /> 
 ```
 
-其中```android:background="@drawable/progress_bg"```指定背景
+其中`android:background="@drawable/progress_bg"`指定背景
 
-而```android:progressDrawable="@drawable/progress_horizontal1"```前景使用上面的```progress_horizontal1```
+`android:progressDrawable="@drawable/progress_horizontal1"`前景使用上面的`progress_horizontal1`
 
 ok，搞定：
 
@@ -153,7 +153,7 @@ ok，搞定：
 
 ## 二）纵向进度条
 
-还是得从源码入手，看回```progress_horizontal.xml```
+还是得从源码入手，看回`progress_horizontal.xml`
 
 ```xml
 <item android:id="@android:id/progress"> 
@@ -171,7 +171,7 @@ ok，搞定：
 </item> 
 ```
 
-为什么```shape```外面要包一层```clip```呢，官方文档解释是```clipdrawable```是可以自我复制的，来看看定义：
+为什么`shape`外面要包一层`clip`呢，官方文档解释是`clipdrawable`是可以自我复制的，来看看定义：
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?> 
@@ -184,11 +184,11 @@ ok，搞定：
                      "center" | "fill" | "clip_vertical" | "clip_horizontal"] />
 ```
 
-> ```android:clipOrientation```有两个属性，默认为```horizontal```
+> `android:clipOrientation`有两个属性，默认为`horizontal`
 > 
-> ```android:gravity```有多个属性，默认为```left```
+> `android:gravity`有多个属性，默认为`left`
 
-那我们试试改成```vertical```和```bottom```会有什么效果，新建一个```progress_vertical.xml```，把源码```progress_horizontal.xml```的内容复制过来，这里去掉了```secondaryProgress```，修改了```clip```，```shape```的渐变中心```centerY```改为```centerX```:
+那我们试试改成`vertical`和`bottom`会有什么效果，新建一个`progress_vertical.xml`，把源码`progress_horizontal.xml`的内容复制过来，这里去掉了`secondaryProgress`，修改了`clip`，`shape`的渐变中心`centerY`改为`centerX`:
 
 ```xml
 <item android:id="@android:id/progress"> 
@@ -208,7 +208,7 @@ ok，搞定：
 </item> 
 ```
 
-布局中```android:progressDrawable="@drawable/progress_vertical"```
+布局中`android:progressDrawable="@drawable/progress_vertical"`
 
 ok，搞定，就是这么简单：
 
@@ -241,9 +241,9 @@ public class Arcs extends View {
 }  
 ```
 
-首先是一堆成员变量，两个```Paint```用来画圆弧一个前景一个背景，一个```RectF```圆弧就画在上面，然后是一些控制参数比如```sweep```圆弧扫过的角度，```xy```坐标等等。
+首先是一堆成员变量，两个`Paint`用来画圆弧一个前景一个背景，一个`RectF`圆弧就画在上面，然后是一些控制参数比如`sweep`圆弧扫过的角度，`xy`坐标等等。
 
-然后设置两个画笔，颜色，宽度，样式等等，```BlurMaskFilter```笔是边缘模糊效果，有几种，可以自己尝试：
+然后设置两个画笔，颜色，宽度，样式等等，`BlurMaskFilter`笔是边缘模糊效果，有几种，可以自己尝试：
 
 ```java
 mArcPaint = new Paint(Paint.ANTI_ALIAS_FLAG); 
@@ -263,7 +263,7 @@ BlurMaskFilter mBGBlur = new BlurMaskFilter(8, BlurMaskFilter.Blur.INNER);
 mArcBGPaint.setMaskFilter(mBGBlur); 
 ```
 
-接着重写父类```View```的```onSizeChanged```，为的是自己根据布局中的大小做居中处理：
+接着重写父类`View`的`onSizeChanged`，为的是自己根据布局中的大小做居中处理：
 
 ```java
 @Override 
@@ -277,7 +277,7 @@ protected void onSizeChanged(int w, int h, int ow, int oh) {
 } 
 ```
 
-重写```onDraw```以便重绘```canvas```：
+重写`onDraw`以便重绘`canvas`：
 
 ```java
 @Override   
@@ -316,9 +316,9 @@ private void calcSpeed() {
 } 
 ```
 
-```drawSpeed```里面：
+`drawSpeed`里面：
 
-通过计算```mSweep = (float) mIncSpeedValue / mSpeedMax * 180;```，然后```canvas.drawArc(mOval, 180, mSweep, false, mArcPaint);```会根据```mSweep```的变化，画出相应长度的弧度来根据与阈值的对比，还可以设定不同的颜色：
+通过计算`mSweep = (float) mIncSpeedValue / mSpeedMax * 180;`，然后`canvas.drawArc(mOval, 180, mSweep, false, mArcPaint);`会根据`mSweep`的变化，画出相应长度的弧度来根据与阈值的对比，还可以设定不同的颜色：
 
 ```java
 if (mIncSpeedValue > mThreshold) {
@@ -328,7 +328,7 @@ if (mIncSpeedValue > mThreshold) {
 }
 ```
 
-```calcSpeed```通过一个步进来控制增量或减量，以使弧度自然过渡，减少跳跃。
+`calcSpeed`通过一个步进来控制增量或减量，以使弧度自然过渡，减少跳跃。
 
 ok，大功告成：
 

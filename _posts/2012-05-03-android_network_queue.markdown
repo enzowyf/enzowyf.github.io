@@ -8,9 +8,9 @@ tags: android network
 
 因为之前参与的网络开发项目都遇到一些相同的问题：
 
-1. 大量的并发请求造成堵塞，特别是遇上让人无语的```3G```网络，无限loading。。。
+1. 大量的并发请求造成堵塞，特别是遇上让人无语的`3G`网络，无限loading。。。
 2. 一般来说一个网络请求都会用使用到一个异步线程，大量的线程创建、运行、销毁又造成了系统资源的浪费
-3. 请求结束得到结果后，如果需要更新```UI```，一个不小心忘了返回```UI```线程，各种崩溃。。。
+3. 请求结束得到结果后，如果需要更新`UI`，一个不小心忘了返回`UI`线程，各种崩溃。。。
  
 前些日子跟同事商量能不能做个请求队列去进行控制，于是趁着热度没消退说干就干，建了个模型，以备日后使用。
  
@@ -24,9 +24,9 @@ tags: android network
  
 构思：
 
-> ```UI```线程将期望的网络请求url和参数通过一个封装好的```Runnable```提交给```Service```处理（当然也可以交给一个```Thread```处理，本例使用```Service```），```Service```接收到请求，判断优先级，加入到相应线程池中排队。线程池启动线程发起网络请求，最后通过监听器将结果返回给```Service```，```Service```发送广播通知```UI```线程，```UI```线程更新相关界面，结束。
+> `UI`线程将期望的网络请求url和参数通过一个封装好的`Runnable`提交给`Service`处理（当然也可以交给一个`Thread`处理，本例使用`Service`），`Service`接收到请求，判断优先级，加入到相应线程池中排队。线程池启动线程发起网络请求，最后通过监听器将结果返回给`Service`，`Service`发送广播通知`UI`线程，`UI`线程更新相关界面，结束。
  
-废话说完，上例子，首先是封装好的```Runnable```：
+废话说完，上例子，首先是封装好的`Runnable`：
  
 ```java
 public class HttpConnRunnable implements Runnable, Parcelable { 
@@ -119,7 +119,7 @@ public class HttpConnRunnable implements Runnable, Parcelable {
 } 
 ```
 
-然后是```Service```的处理:
+然后是`Service`的处理:
 
 ```java
 public class HttpConnService extends Service implements HttpConnListener { 
@@ -224,7 +224,7 @@ public class HttpConnService extends Service implements HttpConnListener {
 } 
 ``` 
  
-最后的```Receiver```处理比较简单：
+最后的`Receiver`处理比较简单：
 
 ```java
 public class HttpConnReceiver extends BroadcastReceiver { 
@@ -281,4 +281,4 @@ ok,流程走完了，写个测试界面：
  
 ### 总结：
 
-如果不算```Service```一共最多使用了3个线程池，6个线程，或许可以考虑将三个池合并为一个。但却也大量减少了单独发起请求时的线程创建和销毁的消耗。
+如果不算`Service`一共最多使用了3个线程池，6个线程，或许可以考虑将三个池合并为一个。但却也大量减少了单独发起请求时的线程创建和销毁的消耗。

@@ -6,43 +6,43 @@ categories: Android开发
 tags: http2 android ALPN
 ---
 
-看了很多关于```HTTP/2```的优势、性能如何如何提升的文章，可是对于```Android```客户端开发来说，```Android API```要是不支持，也是白搭啊。度娘说，要客户端支持```HTTP/2```，首先要支持```ALPN```（```ALPN```是什么，这里有介绍[Introducing ALPN](http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html)）
+看了很多关于`HTTP/2`的优势、性能如何如何提升的文章，可是对于`Android`客户端开发来说，`Android API`要是不支持，也是白搭啊。度娘说，要客户端支持`HTTP/2`，首先要支持`ALPN`（`ALPN`是什么，这里有介绍[Introducing ALPN](http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html)）
 
-而要```Android```支持```HTTP/2```，首先离不开```Java```的支持。从公开资料得知，```HTTP/2```和```ALPN```被包含了在```Java9```的新特性中，而```Java9```已经跳票到2017年7月。。。隔壁的```iOS```从9开始就提供API支持了。。。蓝瘦，香菇
+而要`Android`支持`HTTP/2`，首先离不开`Java`的支持。从公开资料得知，`HTTP/2`和`ALPN`被包含了在`Java9`的新特性中，而`Java9`已经跳票到2017年7月。。。隔壁的`iOS`从9开始就提供API支持了。。。蓝瘦，香菇
 
-等等，我们知道```Android API```中用于完成网络请求的```URLConnection```已经在```Andriod 4.x```时代被替换成了基于```OkHttp```的实现，而不再是原本的```Java```封装，那```OkHttp```能支持不就可以了吗。
+等等，我们知道`Android API`中用于完成网络请求的`URLConnection`已经在`Andriod 4.x`时代被替换成了基于`OkHttp`的实现，而不再是原本的`Java`封装，那`OkHttp`能支持不就可以了吗。
 
 ![](./../assets/img/2016-10-13-android_http2/1.png)
 
- 刚进入```OkHttp```官网首页，就看到了硕大的```HTTP/2```字样，一阵狂喜，查看changelog，发现从```Version 1.5.0```开始就支持```ALPN```了，可是仅限于```Android4.4+```：
+ 刚进入`OkHttp`官网首页，就看到了硕大的`HTTP/2`字样，一阵狂喜，查看changelog，发现从`Version 1.5.0`开始就支持`ALPN`了，可是仅限于`Android4.4+`：
 
 * New: Use ALPN on Android platforms that support it (4.4+)
 
-不管怎样总算看到一线希望，只是用于封装```URLConnection```的是哪个版本呢，能不能支持```HTTP/2```呢，动手写个demo试试吧。
+不管怎样总算看到一线希望，只是用于封装`URLConnection`的是哪个版本呢，能不能支持`HTTP/2`呢，动手写个demo试试吧。
 
  
 
 --------------------------------高端大气上档次的分割线----------------------------
 
-要测试```HTTP/2```，首先要有个server，自己动手，听说```nginx```支持```HTTP/2```的部署，那就你了
+要测试`HTTP/2`，首先要有个server，自己动手，听说`nginx`支持`HTTP/2`的部署，那就你了
 
 ### 一、安装nginx
 
-到[http://nginx.org/en/download.html](http://nginx.org/en/download.html)，```nginx```已经为```windows```编译好，直接下载就可以用。
+到[http://nginx.org/en/download.html](http://nginx.org/en/download.html)，`nginx`已经为`windows`编译好，直接下载就可以用。
 
-进入```nginx```目录
+进入`nginx`目录
 
 ```bash
 start nginx
 ```
 
-度娘说，```HTTP/2```需要基于```TLS```，也就是先得部署```HTTPS```，部署```HTTPS```需要签名，据说有免费的签名可以申请，不过也可以自签名：
+度娘说，`HTTP/2`需要基于`TLS`，也就是先得部署`HTTPS`，部署`HTTPS`需要签名，据说有免费的签名可以申请，不过也可以自签名：
 
 ### 二、生成证书
 
-上```OpenSSL```下载，安装，
+上`OpenSSL`下载，安装，
 
-在```nginx```根目录下新建```ssl```文件夹(名字可以自己定)，
+在`nginx`根目录下新建`ssl`文件夹(名字可以自己定)，
 
 ```bash
 #此步用于生成私钥，会提示输入密码，密码后面步骤需要用到；enzo.key为私钥的名字，文件名可自己定
@@ -59,16 +59,16 @@ openssl rsa -in enzo.key -out enzo-np.key
 openssl x509 -req -days 366 -in enzo.csr -signkey enzo-np.key -out enzo.crt
 ```
 
- 经过以上几个步骤，证书生成完毕，```ssl```文件夹下的```enzo.crt```和```enzo-np.key```为我们后续要使用的文件。
+ 经过以上几个步骤，证书生成完毕，`ssl`文件夹下的`enzo.crt`和`enzo-np.key`为我们后续要使用的文件。
 
-注：在执行```openssl```命令时，可能会出现提示找不到```openssl```配置文件，
+注：在执行`openssl`命令时，可能会出现提示找不到`openssl`配置文件，
 
-需要手动将```C:\OpenSSL-Win64\bin\openssl.cfg```重命名为```openssl.cnf```并copy到
-```C:\Program Files\Common Files\SSL\```
+需要手动将`C:\OpenSSL-Win64\bin\openssl.cfg`重命名为`openssl.cnf`并copy到
+`C:\Program Files\Common Files\SSL\`
 
 ### 三、部署HTTPS 和 HTTP/2
 
-打开```nginx```目录下```conf\nginx.conf```文件，找到```HTTPS server```的配置，将配置项前面的注释符号去掉，然后修改如下：
+打开`nginx`目录下`conf\nginx.conf`文件，找到`HTTPS server`的配置，将配置项前面的注释符号去掉，然后修改如下：
 
 ```nginx
 server {
@@ -92,9 +92,9 @@ server {
     }
 ```
   
-### 四、配置重定向
+### 四、配置重定向
 
-将```http```的请求重定向到```https```，只需要在```http```对应```server```配置中添加```rewrite```
+将`http`的请求重定向到`https`，只需要在`http`对应`server`配置中添加`rewrite`
 
 ```nginx
 server {
@@ -103,7 +103,7 @@ server {
         rewrite ^(.*) https://$server_name$1 permanent;
 }
 ```
- 由于指定了虚拟域名，还需要在```hosts```中将```enzo.com```指向本机```127.0.0.1```
+ 由于指定了虚拟域名，还需要在`hosts`中将`enzo.com`指向本机`127.0.0.1`
 
 ### 五、加载nginx配置
 
@@ -112,25 +112,25 @@ D:\http2\nginx-1.11.4>nginx -s reload
 nginx: [emerg] the "http2" parameter requires ngx_http_v2_module in D:\http2\nginx-1.11.4/conf/nginx.conf:98
 ```
 
- 什么情况，缺少参数？？？马上```google```，原来是官方编译的时候没有带上```--with-http_v2_module```
+ 什么情况，缺少参数？？？马上`google`，原来是官方编译的时候没有带上`--with-http_v2_module`
 
 ### 六、重新编译nginx
 
-要在```windows```下编译，太痛苦了吧，还是移师```mac```吧
+要在`windows`下编译，太痛苦了吧，还是移师`mac`吧
 
-重新编译```nginx```需要依赖以下模块：
+重新编译`nginx`需要依赖以下模块：
 
-* ```gzip```模块需要```zlib```库    ----  已经有了
+* `gzip`模块需要`zlib`库    ----  已经有了
 
-* ```rewrite```模块需要```pcre```库   ---- 不需要编译，只需要编译```nginx```的时候指定源码路径
+* `rewrite`模块需要`pcre`库   ---- 不需要编译，只需要编译`nginx`的时候指定源码路径
 
-* ```ssl```功能需要```openssl```库    ----  已经有了，但是怕内建的版本太旧不支持```ALPN```，还是重新下载编译吧
+* `ssl`功能需要`openssl`库    ----  已经有了，但是怕内建的版本太旧不支持`ALPN`，还是重新下载编译吧
 
 #### 6.1 编译OpenSSL
 
 在[http://www.openssl.org/source](http://www.openssl.org/source)下载当前最新的版本源码
 
-解压缩```openssl-xx.tar.gz```包， 进入解压缩目录，执行：
+解压缩`openssl-xx.tar.gz`包， 进入解压缩目录，执行：
 
 ```bash
 ./config
@@ -140,11 +140,11 @@ sudo make install
 
 #### 6.2 编译OpenSSL
 
-在[http://www.pcre.org](http://www.pcre.org)下载当前最新的版本的```pcre```源码
+在[http://www.pcre.org](http://www.pcre.org)下载当前最新的版本的`pcre`源码
 
-在[http://nginx.org/en/download.html](http://nginx.org/en/download.html)下载当前最新的版本的```nginx```源码
+在[http://nginx.org/en/download.html](http://nginx.org/en/download.html)下载当前最新的版本的`nginx`源码
 
-解压缩```pcre-xx.tar.gz```、```nginx-xx.tar.gz```包，进入解压缩目录，执行：
+解压缩`pcre-xx.tar.gz`、`nginx-xx.tar.gz`包，进入解压缩目录，执行：
 
 ```bash
 ./configure --with-pcre=/Users/enzo/http2/pcre-8.39 --with-http_v2_module --with-http_ssl_module
@@ -155,24 +155,24 @@ sudo make install
 
 ### 七、重启打开nginx服务
 
-重新放入证书，配置文件，配置```hosts```，进入```nginx/sbin```:
+重新放入证书，配置文件，配置`hosts`，进入`nginx/sbin`:
 
 ```bash
 cd /usr/local/nginx/sbin
 sudo ./nginx
 ```
 
- 打开```chrome```，输入```https://enzo.com```
+ 打开`chrome`，输入`https://enzo.com`
 
 欧也
 
 ![](./../assets/img/2016-10-13-android_http2/2.png)
 ![](./../assets/img/2016-10-13-android_http2/3.png)
 
-硕大的```h2```，看到没，部署成功了。
+硕大的`h2`，看到没，部署成功了。
 
 ### 八、测试URLConnection
-写个Demo，测一下```URLConnection```，因为是```HTTPS```，所以需要一个```SSLContext```，将前面生成的证书```enzo.crt```放到```assets```目录：
+写个Demo，测一下`URLConnection`，因为是`HTTPS`，所以需要一个`SSLContext`，将前面生成的证书`enzo.crt`放到`assets`目录：
 
 ```java
 public SSLContext getSSLContext() {
@@ -254,25 +254,25 @@ public void testURLConnection() {
 	}
 ```
 
-找一个已root的4.4的手机，确保跟server处于同一个局域网，在手机的```hosts```将```enzo.com```指向server地址，运行demo，只见```nginx```的```access.log```中给你来了这么一行：
+找一个已root的4.4的手机，确保跟server处于同一个局域网，在手机的`hosts`将`enzo.com`指向server地址，运行demo，只见`nginx`的`access.log`中给你来了这么一行：
 
 ```bash
 "GET / HTTP/1.1" 200 612 "-" "Dalvik/1.6.0 (Linux; U; Android 4.4.4; M463C Build/KTU84P)"
 ```
 
- 被降级到```HTTP/1.1```了，那5.x的手机呢：
+ 被降级到`HTTP/1.1`了，那5.x的手机呢：
 
 ```bash
 "GET / HTTP/1.1" 200 612 "-" "Dalvik/2.1.0 (Linux; U; Android 5.1.1; NX529J Build/LMY47V)"
 ```
 
- 好吧，看来```URLConnection```是指望不上了
+ 好吧，看来`URLConnection`是指望不上了
 
 
 
 ### 九、测试OkHttp
 
-那么直接上```OkHttp```，下了个最新的3.4.1
+那么直接上`OkHttp`，下了个最新的3.4.1
 
 ```java
 public void testOkHttp() {
@@ -318,15 +318,15 @@ public void testOkHttp() {
 "GET / HTTP/2.0" 200 729 "-" "okhttp/3.4.1"
 ```
 
-又见```HTTP/2```!
+又见`HTTP/2`!
 
 
 
-所以```OkHttp``` & ```Android 5.0+``` 是可以实现```HTTP/2```访问的。
+所以`OkHttp` & `Android 5.0+` 是可以实现`HTTP/2`访问的。
 
 
 
 写在最后：
 
-[Introducing ALPN](http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html)的最后面，介绍了```“How to build ALPN”```，把```jetty ALPN```实现编译到```OpenJDK 7/8```里面去，也许也是个办法，但考虑到替换```OpenJDK```不太现实，所以没有进一步尝试。
+[Introducing ALPN](http://www.eclipse.org/jetty/documentation/current/alpn-chapter.html)的最后面，介绍了`“How to build ALPN”`，把`jetty ALPN`实现编译到`OpenJDK 7/8`里面去，也许也是个办法，但考虑到替换`OpenJDK`不太现实，所以没有进一步尝试。
 
