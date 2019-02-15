@@ -8,8 +8,7 @@ tags: android
 
 最近为了做```LBS```功能模块，到网上搜了一些资料，大多数介绍都是使用繁琐的基站定位，要自己去读取什么```CellId```，```LocationAreaCode```， ```MobileCountryCode```，```MobileNetworkCode```等参数，而且多数是针对```GSM/UMTS```。而自己使用的```CDMA```，跟上面的参数叫法不一样，还得自己一个一个去对应。虽然最后算是解决了，但是难道就没有更好的办法吗。
 
-翻了翻```Android Developer```找到一个不错的东西```LocationManager```。
-```LocationManager```是通过```listener```的方式来告知调用者，而原来写好的模块是直接```return```的，于是得稍微改造一下：
+翻了翻```Android Developer```找到一个不错的东西```LocationManager```。```LocationManager```是通过```listener```的方式来告知调用者，而原来写好的模块是直接```return```的，于是得稍微改造一下：
 
 首先定义一个```Model```：
 
@@ -107,7 +106,7 @@ private void registerLocationListener () {
 } 
 ```
  
- ```isGPSEnabled和isNetworkEnabled```分别为判断当前手机是否开启了```GPS```以及网络的状况（包含了是否开启```wifi```和移动网络），以决定使用哪一种服务提供者：```GPS_PROVIDER```或者```NETWORK_PROVIDER```。
+其中```isGPSEnabled```和```isNetworkEnabled```分别为判断当前手机是否开启了```GPS```以及网络的状况（包含了是否开启```wifi```和移动网络），以决定使用哪一种服务提供者：```GPS_PROVIDER```或者```NETWORK_PROVIDER```。
 
 ```java
 /**  

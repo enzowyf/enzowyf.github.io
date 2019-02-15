@@ -19,7 +19,7 @@ ok，我们开始吧：
  
 ## 一）变换前背景
 
-先来看看progressbar的属性：
+先来看看```progressbar```的属性：
 
 ```xml
 <ProgressBar 
@@ -140,9 +140,9 @@ ok，我们开始吧：
     android:progressDrawable="@drawable/progress_horizontal1" /> 
 ```
 
-```android:background="@drawable/progress_bg"```指定背景
+其中```android:background="@drawable/progress_bg"```指定背景
 
-```android:progressDrawable="@drawable/progress_horizontal1"```前景使用上面的```progress_horizontal1```
+而```android:progressDrawable="@drawable/progress_horizontal1"```前景使用上面的```progress_horizontal1```
 
 ok，搞定：
 
@@ -184,9 +184,9 @@ ok，搞定：
                      "center" | "fill" | "clip_vertical" | "clip_horizontal"] />
 ```
 
-```android:clipOrientation```有两个属性，默认为```horizontal```
-
-```android:gravity```有多个属性，默认为```left```
+> ```android:clipOrientation```有两个属性，默认为```horizontal```
+> 
+> ```android:gravity```有多个属性，默认为```left```
 
 那我们试试改成```vertical```和```bottom```会有什么效果，新建一个```progress_vertical.xml```，把源码```progress_horizontal.xml```的内容复制过来，这里去掉了```secondaryProgress```，修改了```clip```，```shape```的渐变中心```centerY```改为```centerX```:
 

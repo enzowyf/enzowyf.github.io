@@ -119,7 +119,7 @@ public class HttpConnRunnable implements Runnable, Parcelable {
 } 
 ```
 
-```Service```的处理:
+然后是```Service```的处理:
 
 ```java
 public class HttpConnService extends Service implements HttpConnListener { 
@@ -224,7 +224,7 @@ public class HttpConnService extends Service implements HttpConnListener {
 } 
 ``` 
  
-```Receiver```的处理比较简单：
+最后的```Receiver```处理比较简单：
 
 ```java
 public class HttpConnReceiver extends BroadcastReceiver { 
