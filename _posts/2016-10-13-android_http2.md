@@ -12,7 +12,7 @@ tags: http2 android ALPN
 
 等等，我们知道```Android API```中用于完成网络请求的```URLConnection```已经在```Andriod 4.x```时代被替换成了基于```OkHttp```的实现，而不再是原本的```Java```封装，那```OkHttp```能支持不就可以了吗。
 
-![](./../assets/img/post/android_http2_1.png)
+![](./../assets/img/2016-10-13-android_http2/1.png)
 
  刚进入```OkHttp```官网首页，就看到了硕大的```HTTP/2```字样，一阵狂喜，查看changelog，发现从```Version 1.5.0```开始就支持```ALPN```了，可是仅限于```Android4.4+```：
 
@@ -142,7 +142,7 @@ sudo make install
 
 在[http://www.pcre.org](http://www.pcre.org)下载当前最新的版本的```pcre```源码
 
-在[http://nginx.org/en/download.html](http://nginx.org/en/download.html)下载当前最新的版本的nginx源码
+在[http://nginx.org/en/download.html](http://nginx.org/en/download.html)下载当前最新的版本的```nginx```源码
 
 解压缩```pcre-xx.tar.gz```、```nginx-xx.tar.gz```包，进入解压缩目录，执行：
 
@@ -166,8 +166,8 @@ sudo ./nginx
 
 欧也
 
-![](./../assets/img/post/android_http2_2.png)
-![](./../assets/img/post/android_http2_3.png)
+![](./../assets/img/2016-10-13-android_http2/2.png)
+![](./../assets/img/2016-10-13-android_http2/3.png)
 
 硕大的```h2```，看到没，部署成功了。
 
