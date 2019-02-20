@@ -29,11 +29,11 @@ tags: android svg
 ### 创建VectorDrawable
 `VectorDrawable`一般不需要手动创建，而是通过`Android Studio`的新建`Vector Asset`文件功能，在项目`res\drawable`目录下点击鼠标右键可以看到：
 
-![](./../assets/img/2017-07-24-svg_android/1.png)
+![](./../assets/img/2018-07-24-svg_android/1.png)
 
 点击进入：
 
-![](./../assets/img/2017-07-24-svg_android/2.png)
+![](./../assets/img/2018-07-24-svg_android/2.png)
 
 * Asset Type： 选择`Local file`
 * Name： 输入一个合适的文件名
@@ -72,7 +72,7 @@ tags: android svg
 
 上述的属性都可以自行修改，同时在`preview`界面可以很直观的观察修改效果：
 
-![](./../assets/img/2017-07-24-svg_android/3.png)
+![](./../assets/img/2018-07-24-svg_android/3.png)
 
 
 ### 使用VectorDrawable
