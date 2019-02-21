@@ -1,18 +1,18 @@
 ---
 layout: post
-title:  "Android使用SVG"
+title:  "在Android开发中使用SVG"
 date:   2018-07-24 15:32:42 +0800
 categories: Android开发
 tags: android svg
 ---
 
-一直以来，在`Android`开发中使用的图片资源都是`jpg`或者`png`格式的。`Android`各种坑爹的分辨率，使得我们不得不为同一图片资源准备多份来适应不同的分辨率，导致最终安装包大小变的很大，即使如此也无法很好的解决问题。所以最近开始在手头的项目中尝试使用`SVG`。
+一直以来，在Android开发中使用的图片资源都是jpg或者png格式的。Android各种坑爹的分辨率，使得我们不得不为同一图片资源准备多份来适应不同的分辨率，导致最终安装包大小变的很大，即使如此也无法很好的解决问题。所以最近开始在手头的项目中尝试使用SVG。
 
 > SVG -- 可缩放矢量图形（英语：Scalable Vector Graphics，SVG）是一种基于可扩展标记语言（XML），用于描述二维矢量图形的图形格式。SVG由W3C制定，是一个开放标准。----摘自[维基百科](https://zh.wikipedia.org/wiki/%E5%8F%AF%E7%B8%AE%E6%94%BE%E5%90%91%E9%87%8F%E5%9C%96%E5%BD%A2)
 
-`SVG`很好的解决了适配分辨率的烦恼，作为矢量图形，可以做到无级放大且不会出现锯齿，同时自身由于是`xml`文件，自身体积也比较小，达到控制了安装包大小的目的。
+SVG很好的解决了适配分辨率的烦恼，作为矢量图形，可以做到无级放大且不会出现锯齿，同时自身由于是xml文件，自身体积也比较小，达到控制了安装包大小的目的。
 
-在`Android`上使用`SVG`并不是直接把`SVG`文件直接拖入到工程资源文件夹中，而是需要转换成`VectorDrawable`或者绘制`Canvas`的代码。这里有个`SVG`描述的箭头：
+在Android上使用SVG并不是直接把SVG文件直接拖入到工程资源文件夹中，而是需要转换成VectorDrawable或者绘制Canvas的代码。这里有个SVG描述的箭头：
 
 ```xml
 <svg xmlns="http://www.w3.org/2000/svg" width="54" height="36" viewBox="0 0 54 36">
@@ -24,10 +24,10 @@ tags: android svg
 
 
 ## 一、VectorDrawable
-`VectorDrawable`是`Google`从`Android 5.0`开始引入的一个专门用于处理矢量图的`Drawable`子类，并通过`support-library`向下支持到`Android 4.0`。
+VectorDrawable是Google从Android 5.0开始引入的一个专门用于处理矢量图的Drawable子类，并通过support-library向下支持到Android 4.0。
 
 ### 创建VectorDrawable
-`VectorDrawable`一般不需要手动创建，而是通过`Android Studio`的新建`Vector Asset`文件功能，在项目`res\drawable`目录下点击鼠标右键可以看到：
+VectorDrawable一般不需要手动创建，而是通过Android Studio的新建Vector Asset文件功能，在项目res\drawable目录下点击鼠标右键可以看到：
 
 ![](./../assets/img/2018-07-24-svg_android/1.png)
 
@@ -35,14 +35,14 @@ tags: android svg
 
 ![](./../assets/img/2018-07-24-svg_android/2.png)
 
-* Asset Type： 选择`Local file`
+* Asset Type： 选择Local file
 * Name： 输入一个合适的文件名
-* Path： 想要转换的`SVG`文件的路径
-* Size： 如果原图是非正方形尺寸，一定要勾选`Override`，否则图形会被拉伸变形。具体尺寸那里默认即可。
+* Path： 想要转换的SVG文件的路径
+* Size： 如果原图是非正方形尺寸，一定要勾选Override，否则图形会被拉伸变形。具体尺寸那里默认即可。
 * Opacity：根据具体需要输入。
 * Enable auto mirroring for RTL layout：是否要自动适应右到左布局（阿拉伯国家的文字是右到左），一般不需要。
 
-最后选择Next然后再Finish，就可以看到`res\drawable`目录下多了个刚刚你命名的`xml`文件，比如：
+最后选择Next然后再Finish，就可以看到res\drawable目录下多了个刚刚你命名的xml文件，比如：
 
 ```xml
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
@@ -57,26 +57,26 @@ tags: android svg
 </vector>
 ```
 
-`vector`标签表示这是一个`VectorDrawable`，这里可以看到几个属性：
+vector标签表示这是一个VectorDrawable，这里可以看到几个属性：
 
-* width & height： 图片宽高，对应`SVG`文件中的`width` &` height`。
-* viewportWidth & viewportHeight： 用于定义`viewport`空间的宽高，对应`SVG`文件中的`viewBox`。`viewport`可以理解为绘制`paths`的画布，上面的例子可以理解为在54dp * 36 dp的空间里面，有 54 * 36个网格，图片的`paths`数据就绘制在这些网格当中。
+ * width & height： 图片宽高，对应SVG文件中的width & height。
+ * viewportWidth & viewportHeight： 用于定义viewport空间的宽高，对应SVG文件中的viewBox。viewport可以理解为绘制paths的画布，上面的* 例子可以理解为在54dp * 36 dp的空间里面，有 54 * 36个网格，图片的paths数据就绘制在这些网格当中。
 
-内层的`path`标签描述的是`paths`绘制的信息，比如具体路径，画笔的颜色类型等等，上面例子出现的属性：
+内层的path标签描述的是paths绘制的信息，比如具体路径，画笔的颜色类型等等，上面例子出现的属性：
 
-* pathData：绘制的具体路径，对应`SVG`文件中`path`标签下的`d`属性
-* fillColor：画笔的颜色，对应`SVG`文件中`path`标签下的`fill`属性
-* fillType：画笔的类型，对应`SVG`文件中`path`标签下的`fill-rule`属性。类型可以是`evenOdd`或`nonZero`。 有关更多详细信息，请参考([https://www.w3.org/TR/SVG/painting.html#FillRuleProperty](https://www.w3.org/TR/SVG/painting.html#FillRuleProperty))
+ * pathData：绘制的具体路径，对应SVG文件中path标签下的d属性
+*  fillColor：画笔的颜色，对应SVG文件中path标签下的fill属性
+*  fillType：画笔的类型，对应SVG文件中path标签下的fill-rule属性。类型可以是evenOdd或nonZero。 有关更多详细信息，请参考([https://www.w3.org/TR/SVG/painting.html#FillRuleProperty](https://www.w3.org/TR/SVG/painting.html#FillRuleProperty))
 
 这里只出现了部分属性，更多的属性请自行参考[https://developer.android.google.cn/reference/android/graphics/drawable/VectorDrawable](https://developer.android.google.cn/reference/android/graphics/drawable/VectorDrawable)，这里就不一一展开了。
 
-上述的属性都可以自行修改，同时在`preview`界面可以很直观的观察修改效果：
+上述的属性都可以自行修改，同时在preview界面可以很直观的观察修改效果：
 
 ![](./../assets/img/2018-07-24-svg_android/3.png)
 
 
 ### 使用VectorDrawable
-首先需要给项目添加兼容性支持，在`build.gradle`脚本中添加：
+首先需要给项目添加兼容性支持，在build.gradle脚本中添加：
 
 ```groovy
 android { 
@@ -86,7 +86,7 @@ android {
 }
 ```
 
-`VectorDrawable`的使用跟一般的图片资源使用方式是一样的，比如用在`ImageView`上面：
+VectorDrawable的使用跟一般的图片资源使用方式是一样的，比如用在ImageView上面：
 
 ```xml
 <ImageView
@@ -107,9 +107,9 @@ android {
 是不是非常简单。
 
 ## 二、转换成Canvas
-前面的`VectorDrawable`最终呈现，还是要绘制在`Canvas`上的，那可不可以直接将`SVG`转换成绘制`Canvas`的代码来使用呢？老外已经做了这个事情了：[SVG2Java/SVG2Android](https://codecrafted.net/svgtoandroid)
+前面的VectorDrawable最终呈现，还是要绘制在Canvas上的，那可不可以直接将SVG转换成绘制Canvas的代码来使用呢？老外已经做了这个事情了：[SVG2Java/SVG2Android](https://codecrafted.net/svgtoandroid)
 
-这是一个在线工具，只要上传`SVG`文件就可以很方便的生成`Java`代码，上面的箭头生成的代码如下：
+这是一个在线工具，只要上传SVG文件就可以很方便的生成Java代码，上面的箭头生成的代码如下：
 
 ```java
 // TODO Include your package name here
@@ -130,16 +130,16 @@ public class ArrowSvgObject {
     private static float od;
     protected static ColorFilter cf = null;
 
-    /**
-     *  IMPORTANT: Due to the static usage of this class this
-     *  method sets the tint color statically. So it is highly
-     *  recommended to call the clearColorTint method when you
-     *  have finished drawing. 
-     *
-     *  Sets the color to use when drawing the SVG. This replaces
-     *  all parts of the drawable which are not completely
-     *  transparent with this color.
-     */
+    /
+       IMPORTANT: Due to the static usage of this class this
+       method sets the tint color statically. So it is highly
+       recommended to call the clearColorTint method when you
+       have finished drawing. 
+     
+       Sets the color to use when drawing the SVG. This replaces
+       all parts of the drawable which are not completely
+       transparent with this color.
+     /
     public static void setColorTint(int color){
         cf = new PorterDuffColorFilter(color, PorterDuff.Mode.SRC_IN);
     }
@@ -160,7 +160,7 @@ public class ArrowSvgObject {
 
         r();
         c.save();
-        c.translate((w - od * ow) / 2f + dx, (h - od * oh) / 2f + dy);
+        c.translate((w - od  ow) / 2f + dx, (h - od  oh) / 2f + dy);
 
         m.reset();
         m.setScale(od, od);
@@ -169,7 +169,7 @@ public class ArrowSvgObject {
         ps.setColor(Color.argb(0,0,0,0));
         ps.setStrokeCap(Paint.Cap.BUTT);
         ps.setStrokeJoin(Paint.Join.MITER);
-        ps.setStrokeMiter(4.0f*od);
+        ps.setStrokeMiter(4.0fod);
         c.scale(1.0f,1.0f);
         c.save();
         p.setColor(Color.parseColor("#D6D6D6"));
@@ -217,7 +217,7 @@ public class ArrowSvgObject {
             switch (i){
                 case 0: ps.setStrokeCap(Paint.Cap.BUTT); break;
                 case 1: ps.setColor(Color.argb(0,0,0,0)); break;
-                case 2: ps.setStrokeMiter(4.0f*od); break;
+                case 2: ps.setStrokeMiter(4.0fod); break;
                 case 3: ps.setStrokeJoin(Paint.Join.MITER); break;
             }
         }
@@ -225,10 +225,10 @@ public class ArrowSvgObject {
 };
 ```
 
-只要将该文件拷贝到工程中即可，如果曾经使用过`Android Canvas`，很快就能看的懂，这里描述了如何一笔一笔的绘制出图片的过程。
+只要将该文件拷贝到工程中即可，如果曾经使用过Android Canvas，很快就能看的懂，这里描述了如何一笔一笔的绘制出图片的过程。
 
 ### 作为自定义View使用
-重写自定义`View`的`onDraw`方法：
+重写自定义View的onDraw方法：
 
 ```kotlin
 override fun onDraw(canvas: Canvas?) {
@@ -256,8 +256,8 @@ val blueTintedIcon = ArrowSvgObject.getTintedDrawable(
 ```
 
 ## 总结
-* 一般情况推荐使用`VectorDrawable`，比较简单方便。
-* 如果是想要一些特殊的实现，比如给图形加一些偏移量，或者做一些位移旋转的动画，则使用`Canvas`方式，更直接。
+ 一般情况推荐使用VectorDrawable，比较简单方便。
+ 如果是想要一些特殊的实现，比如给图形加一些偏移量，或者做一些位移旋转的动画，则使用Canvas方式，更直接。
 
 
 > 最后补充：在H5上，也有类似的Canvas实现方式，比如基于 canvg.js的在线工具[svg2canvas](http://demo.qunee.com/svg2canvas/)
