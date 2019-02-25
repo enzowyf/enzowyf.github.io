@@ -55,6 +55,7 @@ sns:
   #juejin: '//juejin.im/user/57a6f434165abd006159b4cc'
   #instagram: '//www.instagram.com/steveliaocn'
   github: '//github.com/enzowyf'
+  rss: '/rss.xml'
 
 # Tags 设置标签
 recommend-tags: true # whether or not display recommend-tags on the sidebar
@@ -72,7 +73,7 @@ kramdown:
   input: GFM
 
 # RSS
-RSS: false
+RSS: true
 
 # Permalink
 # See: https://github.com/kaeyleo/jekyll-theme-H2O/issues/35
