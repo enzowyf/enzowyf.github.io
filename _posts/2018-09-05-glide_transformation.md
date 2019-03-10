@@ -8,7 +8,7 @@ tags: android glide
 
 大家在使用`Glide`库的时候，都会用到`Transformations`，来完成一些对图片的变换操作，比如使用常见的`CenterCrop`、`CenterInside`和`fitCenter`，来适配`ImageView`的尺寸。
 
-除此之外，Glide还提供了两种常用的裁剪工具：
+除此之外，`Glide`还提供了两种常用的裁剪工具：
 
 * 给方形裁圆角 - RoundedCorners
 * 裁圆形 - CircleCrop
@@ -152,7 +152,7 @@ Glide.with(this)
 这种做法，很好的减少了创建`bitmap`的开销。当然也有人会说欠缺灵活，这就看取舍，是灵活重要还是性能重要。
 
 ## Transformation的缓存
-Transformation配合Glide的缓存策略（`DiskCacheStrategy.ALL`或者`DiskCacheStrategy.RESOURCE`），可以将上次下载并完成变换加工的图片直接拿来使用，有效减少开销。比如上面使用`CircleCrop`加载头像的例子，第一次下载加裁圆形需要大约300ms+，而配合缓存策略，再次加载仅需3ms。
+`Transformation`配合`Glide`的缓存策略（`DiskCacheStrategy.ALL`或者`DiskCacheStrategy.RESOURCE`），可以将上次下载并完成变换加工的图片直接拿来使用，有效减少开销。比如上面使用`CircleCrop`加载头像的例子，第一次下载加裁圆形需要大约`300ms+`，而配合缓存策略，再次加载仅需`3ms`。
 
 Glide提供`Transformations`的子类都有这种效果，而我们前面自定义的`CircleBorderTransformation`却没有，这是为什么呢。
 
@@ -251,7 +251,7 @@ class CircleCropTransformation(private val borderWidth: Float, private val borde
 
 ## Thumbnail 和 Transformation
 
-很多时候，我们会使用Thumbnail来让界面先展示一个模糊一点的图片作为过渡，再最终显示清晰的图片，来提高体验，比如：
+很多时候，我们会使用`Thumbnail`来让界面先展示一个模糊一点的图片作为过渡，再最终显示清晰的图片，来提高体验，比如：
 
 ```kotlin
 Glide.with(this)
