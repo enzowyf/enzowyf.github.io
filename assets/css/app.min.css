@@ -16,7 +16,7 @@ audio,body,caption,div,footer,form,h1,h2,h3,h4,h5,h6,header,html,iframe,label,le
 	outline:0 none
 }
 body {
-	font-family:-apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+	font-family:-apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
 	color:#656565;
 	-webkit-font-smoothing:antialiased;
 	background-color:#f7f8fa
@@ -143,7 +143,7 @@ a {
 	padding-top:190px;
 	line-height:38px;
 	font-size:42px;
-	font-family:Arial,'Hiragino Sans GB','Microsoft YaHei','WenQuanYi Micro Hei',sans-serif;
+	font-family:SourceHanSans-Bold ,Arial,'Hiragino Sans GB','WenQuanYi Micro Hei',sans-serif;
 	font-weight:700;
 	letter-spacing:2px;
 	line-height:52px
@@ -373,7 +373,7 @@ a {
 	padding:0 8px;
 	font-size:14px;
 	color:#a6abb2;
-	font-family:-apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+	font-family:-apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
 	line-height:22px;
 	box-sizing:border-box;
 	box-shadow:0 0 .6px #d5dae1;
@@ -578,7 +578,7 @@ a {
 	padding:0 8px;
 	font-size:14px;
 	color:#a6abb2;
-	font-family:-apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei",sans-serif;
+	font-family:-apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
 	line-height:22px;
 	box-sizing:border-box;
 	box-shadow:0 0 .6px #d5dae1;
@@ -1002,6 +1002,7 @@ a {
 	height:600px
 }
 .home-banner h2 {
+
 	padding-top:260px;
 	font-size:42px
 }
@@ -1188,7 +1189,7 @@ a {
 	margin:100px 0 8px
 }
 .post-wrapper h1 {
-	font-family:"Helvetica Neue",Helvetica,Arial,"Pingfang SC","Microsoft Yahei",Sans-serif
+	font-family:"Helvetica Neue",Helvetica,Arial,"Pingfang SC",Sans-serif
 }
 .post-wrapper .post-meta {
 	margin-top:16px
