@@ -279,6 +279,7 @@ Glide.with(this)
 |过渡图|清晰图|
 |:---:|:---:|
 |![](./../assets/img/2018-09-05-glide_transformation/1.png)| ![](./../assets/img/2018-09-05-glide_transformation/2.png)|
+
 可以看到两图圆角不一致。
 
 这是因为同时使用`Thumbnail`和`Transformation`的，中间的过渡图片也会被传递到`transform `方法进行处理。这个时候，传入图片的尺寸是偏小的，而处理圆角的半径是按照原图进行配置的，所以圆角就偏大。
