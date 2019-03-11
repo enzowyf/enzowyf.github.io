@@ -1,7 +1,7 @@
 # Site settings 配置站点
 title: 'enzo的博客'
 description: 'android Coding'
-keyword: 'android'
+keyword: 'enzo,enzowei,enzo的博客,android,android开发,android博客'
 url: 'https://blog.ezstudio.cn/' # your host
 
 # if you don't need baseurl, you should leave this value blank.
