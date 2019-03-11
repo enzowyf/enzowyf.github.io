@@ -6,12 +6,13 @@
 /*** Mixins ***/
 /** Font **/
 @font-face {
-  font-family: "Merriweather";
-  src: url("../fonts/Merriweather-Black.ttf"); }
-
+  font-family:SourceSansPro-Bold;
+  src:url(../fonts/SourceSansPro-Bold.ttf);
+}
 @font-face {
-  font-family: "Merriweather-Light";
-  src: url("../fonts/Merriweather-Light.ttf"); }
+  font-family:SourceSansPro-Regular;
+  src:url(../fonts/SourceSansPro-Regular.ttf);
+}
 
 /*** Base ***/
 html, body {
@@ -208,7 +209,7 @@ a {
     .article-list .article-item .post-preview {
       position: relative; }
       .article-list .article-item .post-preview .post-title {
-        font-family: "Merriweather", -apple-system, Verdana, "PingFang SC", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+        font-family: "SourceSansPro-Bold", -apple-system, Verdana, "PingFang SC", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
         color: #4E4E4E;
         font-size: 24px;
         line-height: 32px; }
@@ -221,7 +222,7 @@ a {
       .article-list .article-item .post-preview .post-excerpt {
         margin-top: 8px;
         font-size: 16px;
-        font-family: "Merriweather-Light", -apple-system, Verdana, "PingFang SC", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+        font-family: "SourceSansPro-Regular", -apple-system, Verdana, "PingFang SC", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
         line-height: 26px;
         word-break: break-all; }
     .article-list .article-item .post-meta {
@@ -620,7 +621,7 @@ a {
       bottom: 0; }
 
 .markdown-body {
-  font-family: "Merriweather-Light", -apple-system, Verdana, "PingFang SC", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
+  font-family: "SourceSansPro-Regular", -apple-system, Verdana, "PingFang SC", "Helvetica Neue", "Arial", "Hiragino Sans GB", "Microsoft YaHei", "WenQuanYi Micro Hei", sans-serif;
   width: 720px;
   box-sizing: border-box;
   padding: 0 0 32px; }
