@@ -21,7 +21,7 @@ footer:
 author: 'enzo'
 nickname: 'enzo'
 bio: 'coding'
-avatar: '../assets/img/profile.jpeg'
+avatar: './assets/img/profile.jpeg'
 
 # Search
 search: true
@@ -77,7 +77,7 @@ RSS: true
 
 # Permalink
 # See: https://github.com/kaeyleo/jekyll-theme-H2O/issues/35
-permalink: ./:title.html
+permalink: /:title.html
 
 # Plugins
 plugins: [jekyll-paginate]
