@@ -1,10 +1,10 @@
 @font-face {
-	font-family:SourceHanSans-Bold;
-	src:url(../fonts/SourceHanSans-Bold.ttc);
+	font-family:SourceSansPro-Bold;
+	src:url(../fonts/SourceSansPro-Bold.ttf);
 }
 @font-face {
-	font-family:SourceHanSans-Regular;
-	src:url(../fonts/SourceHanSans-Regular.ttc);
+	font-family:SourceSansPro-Regular;
+	src:url(../fonts/SourceSansPro-Regular.ttf);
 }
 body,html {
 	height:100%
@@ -143,7 +143,7 @@ a {
 	padding-top:190px;
 	line-height:38px;
 	font-size:42px;
-	font-family:SourceHanSans-Bold ,Arial,'Hiragino Sans GB','WenQuanYi Micro Hei',sans-serif;
+	font-family:SourceSansPro-Bold ,Arial,'Hiragino Sans GB','WenQuanYi Micro Hei',sans-serif;
 	font-weight:700;
 	letter-spacing:2px;
 	line-height:52px
@@ -221,7 +221,7 @@ a {
 	position:relative
 }
 .article-list .article-item .post-preview .post-title {
-	font-family:SourceHanSans-Bold,-apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
+	font-family:SourceSansPro-Bold,-apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
 	color:#4e4e4e;
 	font-size:24px;
 	line-height:32px
@@ -236,7 +236,7 @@ a {
 .article-list .article-item .post-preview .post-excerpt {
 	margin-top:8px;
 	font-size:16px;
-	font-family:SourceHanSans-Regular,-apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
+	font-family:SourceSansPro-Regular,-apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
 	line-height:26px;
 	word-break:break-all
 }
@@ -706,7 +706,7 @@ a {
 	bottom:0
 }
 .markdown-body {
-	font-family:SourceHanSans-Regular, -apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
+	font-family:SourceSansPro-Regular, -apple-system,Verdana,"PingFang SC","Helvetica Neue",Arial,"Hiragino Sans GB","WenQuanYi Micro Hei",sans-serif;
 	width:720px;
 	box-sizing:border-box;
 	padding:0 0 32px
