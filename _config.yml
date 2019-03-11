@@ -50,9 +50,10 @@ postPatterns: 'circuitBoard'
 # SNS settings 配置社交网站
 # url: email, weibo, zhihu, twitter, instagram, juejin, github, douban, facebook, dribble, uicn, jianshu, medium, linkedin
 sns:
-  #weibo: '//weibo.com/lovecolcol'
   #juejin: '//juejin.im/user/57a6f434165abd006159b4cc'
   #instagram: '//www.instagram.com/steveliaocn'
+  email: mailto:admin@ezstudio.com
+  weibo: '//weibo.com/winwyf'
   github: '//github.com/enzowyf'
   rss: './rss.xml'
 
