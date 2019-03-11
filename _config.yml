@@ -1,7 +1,7 @@
 # Site settings 配置站点
 title: 'enzo的博客'
-description: 'coding'
-keyword: 'coding'
+description: 'More Coding'
+keyword: 'android'
 url: 'https://blog.ezstudio.cn/' # your host
 
 # if you don't need baseurl, you should leave this value blank.
@@ -10,8 +10,8 @@ baseurl: ''
 # Navigation links
 nav:
   home: '/'
-  all: './categories.html'
-  tags: './tags.html'
+  all: '/categories.html'
+  tags: '/tags.html'
 
 # Footer
 footer:
@@ -21,7 +21,7 @@ footer:
 author: 'enzo'
 nickname: 'enzo'
 bio: 'coding'
-avatar: './assets/img/profile.jpeg'
+avatar: '/assets/img/profile.jpeg'
 
 # Search
 search: true
@@ -55,7 +55,7 @@ sns:
   email: mailto:admin@ezstudio.com
   weibo: '//weibo.com/winwyf'
   github: '//github.com/enzowyf'
-  rss: './rss.xml'
+  rss: '/rss.xml'
 
 # Tags 设置标签
 recommend-tags: true # whether or not display recommend-tags on the sidebar
