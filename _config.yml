@@ -82,4 +82,3 @@ permalink: /:title.html
 # Plugins
 plugins: [jekyll-paginate]
 
-theme: jekyll-theme-cayman
