@@ -83,4 +83,3 @@ permalink: /:title.html
 plugins: [jekyll-paginate]
 
 
-theme: jekyll-theme-cayman
