@@ -10,8 +10,8 @@ baseurl: ''
 # Navigation links
 nav:
   home: '/'
-  all: '/categories.html'
-  tags: '/tags.html'
+  all: './categories.html'
+  tags: './tags.html'
 
 # Footer
 footer:
@@ -21,7 +21,7 @@ footer:
 author: 'enzo'
 nickname: 'enzo'
 bio: 'coding'
-avatar: '/assets/img/profile.jpeg'
+avatar: '../assets/img/profile.jpeg'
 
 # Search
 search: true
@@ -55,7 +55,7 @@ sns:
   #juejin: '//juejin.im/user/57a6f434165abd006159b4cc'
   #instagram: '//www.instagram.com/steveliaocn'
   github: '//github.com/enzowyf'
-  rss: '/rss.xml'
+  rss: './rss.xml'
 
 # Tags 设置标签
 recommend-tags: true # whether or not display recommend-tags on the sidebar
@@ -77,7 +77,7 @@ RSS: true
 
 # Permalink
 # See: https://github.com/kaeyleo/jekyll-theme-H2O/issues/35
-permalink: /:title.html
+permalink: ./:title.html
 
 # Plugins
 plugins: [jekyll-paginate]
