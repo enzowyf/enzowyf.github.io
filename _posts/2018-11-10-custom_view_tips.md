@@ -198,9 +198,80 @@ main_layout.addView(avatarView)
 
 ![](./../assets/img/2018-11-10-custom_view_tips/3.png)
 
+### 3. 终极大法
+所谓终极大法就是将自定义`View`的所有子元素，通过`Canvas`绘制到界面上，这样的效率是最高的，适合对性能要求变态的场景：
+
+```kotlin
+class AvatarView4 @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : View(context, attrs, defStyleAttr) {
+
+    private val paint by lazy {
+        Paint().apply {
+            isAntiAlias = true
+        }
+    }
+
+    private var avatarBitmap: Bitmap? = null
+
+    private val vipBitmap by lazy { BitmapFactory.decodeResource(resources, R.drawable.vip) }
+
+    private val vipSize = dip2px(context, 16f)
+
+    private val viewRect by lazy { RectF() }
+
+    private val vipRect by lazy { RectF(0f, 0f, vipSize, vipSize) }
+
+    private val target: SimpleTarget<Bitmap> by lazy {
+        object : SimpleTarget<Bitmap>() {
+            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
+                avatarBitmap = resource
+                invalidate()
+            }
+        }
+    }
+
+    override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        super.onSizeChanged(w, h, oldw, oldh)
+        viewRect.set(0f, 0f, measuredWidth.toFloat(), measuredHeight.toFloat())
+    }
+
+    override fun onDraw(canvas: Canvas?) {
+        super.onDraw(canvas)
+        canvas?.apply {
+            avatarBitmap?.let {
+                drawBitmap(it, null, viewRect, paint)
+            }
+            save()
+            translate(viewRect.right - vipSize, viewRect.bottom - vipSize)
+            drawBitmap(vipBitmap, null, vipRect, paint)
+            restore()
+        }
+    }
+
+    fun setAvatar(url: String) {
+        val requestOptions = RequestOptions.circleCropTransform().dontAnimate()
+        Glide.with(context).asBitmap().load(url).apply(requestOptions).into(target)
+    }
+
+    private fun dip2px(context: Context, @Dimension(unit = Dimension.DP) dpValue: Float): Float {
+        return TypedValue.applyDimension(
+            TypedValue.COMPLEX_UNIT_DIP,
+            dpValue,
+            context.resources.displayMetrics
+        )
+    }
+}
+```
+运行后可以看到，布局层次只有一层：
+
+![](./../assets/img/2018-11-10-custom_view_tips/4.png)
 
 ### 总结
 
 * `merge`标签和`view`标签都能有效减少自定义`View`的嵌套层级
 * `merge`标签适合在其他布局文件直接使用的场景
-* `view`标签适合通过LayoutInflater加载的场景，比如在`RecyclerView`中作为`Item`使用
+* `view`标签适合通过`LayoutInflater`加载的场景，比如在`RecyclerView`中作为`Item`使用
+* 终极大法效率最高，适合对性能要求变态的场景
