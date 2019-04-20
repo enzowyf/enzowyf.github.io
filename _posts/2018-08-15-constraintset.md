@@ -167,7 +167,7 @@ constraintSet.center(R.id.button_2, R.id.button_1, ConstraintSet.END, R.id.butto
 ### centerHorizontally() && centerHorizontallyRtl()
 基于`center()`的再次封装，让两个控件水平居中对齐，其中`centerHorizontallyRtl`用于`Rtl`布局
 
-```
+```java
 public void centerHorizontally(int viewId, int toView)
 public void centerHorizontallyRtl(int viewId, int toView)
 ```
@@ -190,7 +190,7 @@ constraintSet.centerHorizontallyRtl(R.id.button_2, ConstraintSet.PARENT_ID)
 ### centerVertically()
 同样基于`center()`的再次封装，让两个控件垂直居中对齐
 
-```
+```java
 public void centerVertically(int viewId, int toView)
 ```
 
