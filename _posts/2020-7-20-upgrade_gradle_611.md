@@ -6,7 +6,7 @@ categories: Android
 tags: gradle
 ---
 
-最近Android Studio更新到了4.0，随之更新的有Gradle 6.1.1 和 Android Gradle Plugin 4.0，这里记录一下Gradle 从5.6.4升级到6.1.1的过程
+最近Android Studio更新到了4.0，随之更新的有Android Gradle Plugin 4.0，并支持Gradle 6.1.1，据说Gradle 6的编译速度大幅提升，于是打算尝尝鲜，这里记录一下Gradle 从5.6.4升级到6.1.1的过程
 
 
 ### 1. 升级greendao至3.3.0
