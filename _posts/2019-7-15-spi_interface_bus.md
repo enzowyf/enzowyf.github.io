@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "利用AIDL进行模块化通信"
+title:  "使用SPI进行模块化通信"
 date:   2019-07-14 17:49:42 +0800
 categories: Android 
 tags: android SPI 模块化

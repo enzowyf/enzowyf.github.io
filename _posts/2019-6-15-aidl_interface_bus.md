@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "利用AIDL进行模块化通信"
+title:  "使用AIDL进行模块化通信"
 date:   2019-06-14 17:49:42 +0800
 categories: Android 
 tags: android AIDL 模块化
@@ -120,7 +120,7 @@ class ModuleBActivity : AppCompatActivity() {
 }
 ```
 
-点击按钮call_module_a就能看到输出了：
+点击按钮就能看到输出了：
 
 ![](./../assets/img/2019-6-15-aidl_interface_bus/2.png)
 
