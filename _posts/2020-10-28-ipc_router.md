@@ -145,9 +145,9 @@ class MainBinderProvider : AbstractBinderProvider() {
 }
 ```
 
-##Demo
+## Demo
 
-最后是，Demo提供了两个进程main和other，以及两个service：`IProfileServiceI`和`SayHelloService`：
+最后是，Demo提供了两个进程main和other，以及两个service：`IProfileService`和`ISayHelloService`：
 
 ```java
 public interface IProfileService {
