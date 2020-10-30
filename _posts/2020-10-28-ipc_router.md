@@ -23,7 +23,8 @@ public interface IProfileService {
 
 单纯的AIDL接口或者单纯的Java接口肯定都是解决不了的。那么将两者结合呢？
 
-定义一个AIDL接口`IProfileInterface.aidl`
+## 声明接口
+声明一个AIDL接口`IProfileInterface.aidl`
 
 ```java
 interface IProfileInterface {
@@ -35,17 +36,7 @@ interface IProfileInterface {
 
 ```java
 class ProfileService : IProfileService, IProfileInterface.Stub() {
-
-    override fun getName(): String {
-        Log.d("ProfileService", "getName at process:${Process.myPid()} at Thread:${Thread.currentThread()}")
-        return "Enzo Wei"
-    }
-
-    override fun getPhone(): String {
-        Log.d("ProfileService", "getPhone at process:${Process.myPid()} at Thread:${Thread.currentThread()}")
-        return "010-123456"
-    }
-
+    ...
 }
 ```
 
@@ -63,12 +54,23 @@ public interface IService {
 
 public interface IProfileService extends IService { ... }
 ```
-然后在实现类`ProfileService`实现这两个方法：
+
+## 实现接口
+然后在实现类`ProfileService`实现所有方法：
 
 ```kotlin
 class ProfileService : IProfileService, IProfileInterface.Stub() {
 
-    ...
+    override fun getName(): String {
+        Log.d("ProfileService", "getName at process:${Process.myPid()} at Thread:${Thread.currentThread()}")
+        return "Enzo Wei"
+    }
+
+    override fun getPhone(): String {
+        Log.d("ProfileService", "getPhone at process:${Process.myPid()} at Thread:${Thread.currentThread()}")
+        return "010-123456"
+    }
+
     
     override fun getBinder(): IBinder {
         return this
@@ -80,6 +82,7 @@ class ProfileService : IProfileService, IProfileInterface.Stub() {
 }
 ```
 
+## 框架实现
 在路由框架中提供IBinder和实现代理：
 
 ```kotlin
@@ -126,6 +129,8 @@ class ProfileService : IProfileService, IProfileInterface.Stub() {
         }
     }
 ```
+
+## ContentProvider.call跨进程
 
 这里使用了ContentProvider.call方法来启动线程、拿到binder，这个过程是同步的，写法也简单很多
 
