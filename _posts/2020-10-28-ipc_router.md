@@ -185,4 +185,4 @@ public interface ISayHelloService extends IService {
 
 从Demo的结果可以看到，达到我们最初的目的：在同一个接口下，可以按方法级部署于不同的进程。
 
-Demo地址：[https://github.com/enzowyf/ipc_router_demo](https://github.com/enzowyf/ipc_router_demo)
+Demo地址：[https://github.com/enzowyf/ipc_router_demo/tree/router_and_contentprovider_with_aidl](https://github.com/enzowyf/ipc_router_demo/tree/router_and_contentprovider_with_aidl)
