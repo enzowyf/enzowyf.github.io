@@ -6,15 +6,15 @@ categories: Android iOs KMM
 tags: Android iOS KMM
 ---
 
-# KMM 初探
 
 ## 环境搭建
 
 按照官方文档[Get started with Kotlin Multiplatform Mobile \| Kotlin Documentation](https://kotlinlang.org/docs/multiplatform-mobile-getting-started.html)一步一步来即可：
 
-安装检查工具kdoctor并运行之：
+安装检查工具**kdoctor**并运行之：
 
 > brew install kdoctor
+> 
 > kdoctor
 
 
@@ -28,10 +28,10 @@ tags: Android iOS KMM
 
 需要注意的有:
 
-#### Xcode requires to perform the First Launch tasks
-要求Launch Xcode or execute 'xcodebuild -runFirstLaunch' in terminal
+#### a. Xcode requires to perform the First Launch tasks
+要求**Launch Xcode or execute 'xcodebuild -runFirstLaunch' in terminal**
 
-在命令行运行xcodebuild -runFirstLaunch可能会报错：
+在命令行运行**xcodebuild -runFirstLaunch**可能会报错：
 
 ```
 xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer directory '/Library/Developer/CommandLineTools' is a command line tools instance
@@ -40,41 +40,44 @@ xcode-select: error: tool 'xcodebuild' requires Xcode, but active developer dire
 这个时候需要：
 
 > sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+> 
 > xcodebuild -runFirstLaunch
 
 即可
 
-#### cocoapods not found
+#### b. cocoapods not found
 
-需要安装cocoapods：
+需要安装**cocoapods**：
 
 > sudo gem install cocoapods
 
 
 ### Kotlin Multiplatform Mobile plugin
-需要在Android Studio中安装KMM插件：
-`Settings/Preferences | Plugins | Marketplace`中搜索`Kotlin Multiplatform Mobile`即可
+需要在**Android Studio**中安装**KMM**插件：
+**Settings/Preferences | Plugins | Marketplace**中搜索**Kotlin Multiplatform Mobile**即可
 
-另外kdoctor会提示：
+另外**kdoctor**会提示：
 ```
 Android Studio 2021.3 has the issue with running shared unit tests via run gutters
 ```
 忽略即可，这个时候：
 
- ✓ Your system is ready for Kotlin Multiplatform Mobile Development!
+> ✓ Your system is ready for Kotlin Multiplatform Mobile Development!
  
- ## 创建KMM App
- 在Android Studio中：
- `File | New | New Project.`选择`Kotlin Multiplatform App`
+ 
+## 创建KMM App
+ 
+ 在**Android Studio**中：
+ **File | New | New Project.**选择**Kotlin Multiplatform App**
  
 * 第一步: 跟以前一样，起app名，包名，选择最小sdk等等：
 ![457f992e.png](./../assets/img/2022-12-29-kmm_first_step/457f992e.png)
 
-* 然后多了个KMM的选项：
+* 第二步: 多了个KMM的选项：
 ![04be95c9.png](./../assets/img/2022-12-29-kmm_first_step/04be95c9.png)
 前面是指定android app、ios app、共享模块的名称，默认即可
 
-主要是区别是iOS framework distribution：
+主要是区别是**iOS framework distribution**：
 
 * Regular framework: 整合了KMM框架，配置简单
 * CocoaPods Dependency Manager: 需要自己配置KMM的CocoaPods依赖
@@ -83,9 +86,9 @@ Android Studio 2021.3 has the issue with running shared unit tests via run gutte
 
 可以看下创建好的工程目录，有三个gradle module，名字都是上一步指定的：
 
-* shared
+### shared
 
-从build.gradle文件看：
+从**build.gradle**文件看：
 
 ```
 plugins {
@@ -94,11 +97,11 @@ plugins {
     id("com.android.library")
 }
 ```
-首先它是一个android library模块，同时应用了kmm插件和cocoapods插件
+首先它是一个**android library**模块，同时应用了**kmm**插件和**cocoapods**插件
 
-然后是配置cocoapods：
+然后是配置**cocoapods**：
 
-```
+```kotlin
 kotlin {
     cocoapods {
         summary = "Some description for the Shared Module"
@@ -114,7 +117,7 @@ kotlin {
 ```
 
 最后再设置各个依赖
-```
+```kotlin
 kotlin {
     sourceSets {
         val commonMain by getting
@@ -147,21 +150,25 @@ kotlin {
 }
 ```
 
-其实上面大多数sourceSet都不需要，只需要保留三个即可：
+其实上面大多数**sourceSet**都不需要，只需要保留三个即可：
+
   * commonMain，跨平台的共享代码，包括公共的接口、数据类、通用实现和公共的依赖
+  
   * androidMain，需要由android实现的扩展
+  
   * iosMain，需要由ios实现的扩展
 
-通过这种方式可以给不同的sourceSet提供不同的依赖，例如有些库只提供了android版本，而有些kt库可以运行在KMM下（Kotlin声称大多数kt库都可以）
+通过这种方式可以给不同的**sourceSet**提供不同的依赖，例如有些库只提供了**android**版本，而有些kt库可以运行在**KMM**下
 
+通过上述配置，也可以在老工程中直接加入**KMM**模块
 
 ### androidApp
 
-即android端的工程文件，从build.gradle看跟普通的android工程模块没有区别，依赖了shared模块
+即**android**端的工程文件，从**build.gradle**看跟普通的**android**工程模块没有区别，依赖了**shared**模块
 
 ### iosApp
 
-即ios端的工程文件，标准的ios工程，通过Pods依赖了shared模块
+即**ios**端的工程文件，标准的**ios**工程，通过**Pods**依赖了**shared**模块
 
 ```
 target 'iosApp' do
@@ -171,10 +178,15 @@ target 'iosApp' do
 end
 ```
 
-### 运行工程
+## 编译和运行
 
-androidApp 和 iosApp都可以在android studio里面运行，结果如下：
+androidApp 和 iosApp都可以在**android studio**里面运行，结果如下：
 
 ![e5718082.png](./../assets/img/2022-12-29-kmm_first_step/e5718082.png)
 
 ![e3317a98.png](./../assets/img/2022-12-29-kmm_first_step/e3317a98.png)
+
+对于iosApp，也可以在**xcode**单独打开，如果是通过**android studio**创建的工程，则都配置好了，直接运行即可
+
+如果是从xcode创建的工程，则需要根据这个链接进行配置：
+[Make your Android application work on iOS – tutorial \| Kotlin Documentation](https://kotlinlang.org/docs/multiplatform-mobile-integrate-in-existing-app.html#make-your-cross-platform-application-work-on-ios)
